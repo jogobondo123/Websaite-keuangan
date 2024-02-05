@@ -1,33 +1,35 @@
-<?php
-session_start();
+<?php include('../_partials/top.php') ?>
 
-// jika sudah login, alihkan ke halaman dasbor
-if (isset($_SESSION['user'])) {
-  header('Location: ../dasbor/index.php');
-  exit();
-}
-?>
+<h1 class="page-header">Data Kas Warga</h1>
+<?php include('_partials/menu.php') ?>
 
-<?php include('../_partials/top-login.php') ?>
+<?php include('data-index.php') ?>
+<?php include('../dasbor/data-index.php') ?>
 
-<div class="row" style="margin-top: 75px">
-  <div class="col-md-4 col-md-offset-4">
-    <div class="well">
+<table class="table table-striped table-condensed table-hover" id="datatable">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Jumlah Kas</th>
+      <th>Tanggal Update</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <?php $nomor = 1; ?>
+    <?php foreach ($data_kas as $kas) : ?>
+    <tr>
+      <td><?php echo $nomor++ ?>.</td>
+      <td>Rp <?php echo $kas['kas_nominal'] ?></td>
+      <td><?php echo $kas['kas_update'] ?></td>
+  
+    </tr>
+    <?php endforeach ?>
+  </tbody>
+</table>
 
-      <form class="form-signin" method="post" action="../login/proses-login.php">
-        <h2 class="form-signin-heading text-center">
-          <strong>LOGIN</strong>          
-        </h2>        
-        <input type="text" name="username_user" class="form-control" placeholder="Username" autofocus required>
+<br><br>
 
-        <input type="password" name="password_user" class="form-control" placeholder="Password" required>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">
-          <i class="glyphicon glyphicon-log-in"></i> Log in
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
 
-<?php include('../_partials/bottom-login.php') ?>
+<?php include('../_partials/bottom.php') ?>
